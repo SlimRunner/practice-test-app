@@ -59,7 +59,30 @@ import { CycList, listIt, rangeIt, mod } from "./utils.js";
   });
 
   window.addEventListener("keydown", (evt) => {
-    console.log(evt);
+    switch (true) {
+      case evt.code === "ArrowLeft":
+        changeQuestion(-1);
+        break;
+    
+      case evt.code === "ArrowRight":
+        changeQuestion(1);
+        break;
+    
+      case evt.code === "ArrowUp":
+        hideAnswers(false);
+        break;
+    
+      case evt.code === "ArrowDown":
+        hideAnswers(true);
+        break;
+    
+      case evt.code === "Space":
+        playQuestion();
+        break;
+    
+      default:
+        break;
+    }
   });
 
   nextButton.addEventListener("click", () => {
