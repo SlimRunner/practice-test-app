@@ -9,16 +9,35 @@ import { CycList, listIt, rangeIt, mod } from "./utils.js";
   const prevButton = document.getElementById("prev-button");
   const sectionDiv = document.getElementById("section");
   const questionDiv = document.getElementById("question");
+  const questionSpan = document.getElementById("QText");
   const answersDiv = document.getElementById("answers");
-  const speakCheck = document.getElementById("speakit");
+  const speakCheck = document.getElementById("speak-question");
+  const hideQCheck = document.getElementById("hide-question");
+  const hideACheck = document.getElementById("hide-answers");
 
   let test;
   let testFlat;
   let index = 0;
   let iter = new CycList({start: 0, finish: 0});
 
+  speakCheck.addEventListener("change", () => {
+    if (speakCheck.checked) playQuestion();
+  });
+
+  hideQCheck.addEventListener("change", () => {
+    hideQuestions(true);
+  });
+
+  hideACheck.addEventListener("change", () => {
+    hideAnswers(true);
+  });
+
   questionDiv.addEventListener("click", () => {
     playQuestion();
+  });
+
+  answersDiv.addEventListener("click", () => {
+    hideAnswers(!answersDiv.classList.contains("hidden"));
   });
 
   window.addEventListener("load", () => {
@@ -33,15 +52,14 @@ import { CycList, listIt, rangeIt, mod } from "./utils.js";
         window.q = test;
         window.qf = testFlat;
         iter = new CycList({start: 0, finish: testFlat.length - 1, shuffled: true});
+        hideQuestions(true);
         changeQuestion(0);
       })
       .catch(e => console.warn(e));
   });
 
-  container.addEventListener("click", (evt) => {
-    if (evt.target.isSameNode(container)) {
-      answersDiv.classList.remove("hidden");
-    }
+  window.addEventListener("keydown", (evt) => {
+    console.log(evt);
   });
 
   nextButton.addEventListener("click", () => {
@@ -56,13 +74,37 @@ import { CycList, listIt, rangeIt, mod } from "./utils.js";
     speakOutLoud(question);
   }
 
+  function hideQuestions(hide) {
+    if (hideQCheck.checked) {
+      if (hide) questionSpan.classList.add("spoiler");
+      else questionSpan.classList.remove("spoiler");
+    } else {
+      questionSpan.classList.remove("spoiler");
+    }
+  }
+
+  function hideAnswers(hide) {
+    if (hideACheck.checked) {
+      if (hide) {
+        answersDiv.style.transition = "none";
+        answersDiv.classList.add("hidden");
+      } else {
+        answersDiv.style.removeProperty("transition");
+        answersDiv.classList.remove("hidden");
+      }
+    } else {
+      answersDiv.style.removeProperty("transition");
+      answersDiv.classList.remove("hidden");
+    }
+  }
+
   function changeQuestion(delta) {
     // index = mod(index + delta, testFlat.length);
     if (delta > 0) index = iter.next();
     else if (delta < 0) index = iter.prev();
     else index = iter.current();
     
-    answersDiv.classList.add("hidden");
+    hideAnswers(true);
     let {
       title,
       subtitle,
@@ -72,7 +114,7 @@ import { CycList, listIt, rangeIt, mod } from "./utils.js";
     } = testFlat[index];
     if (speakCheck.checked) speakOutLoud(question);
     sectionDiv.innerText = `[${index}]. ${title}: ${subtitle}`;
-    questionDiv.innerText = question;
+    questionSpan.innerText = question;
     answersDiv.innerHTML = (
       type === "single-direct" ?
       `<p>${answer}</p>` :

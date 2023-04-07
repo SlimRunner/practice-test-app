@@ -10,13 +10,21 @@
 <body>
   <div class="content">
     <div id="section"></div>
-    <div id="question"></div>
+    <div id="question"><span id="QText"></span></div>
     <div id="answers"></div>
     <button id="prev-button"></button>
     <button id="next-button"></button>
     <div id="options">
-      <label class="label-container" for="speakit">Text-To-Speech
-        <input type="checkbox" name="speakit" id="speakit">
+      <label class="label-container" for="hide-answers">Hide Answers
+        <input type="checkbox" name="hide-answers" id="hide-answers">
+        <span class="checkmark"></span>
+      </label>
+      <label class="label-container" for="hide-question">Hide Question
+        <input type="checkbox" name="hide-question" id="hide-question">
+        <span class="checkmark"></span>
+      </label>
+      <label class="label-container" for="speak-question">Read Automatically
+        <input type="checkbox" name="speak-question" id="speak-question">
         <span class="checkmark"></span>
       </label>
     </div>

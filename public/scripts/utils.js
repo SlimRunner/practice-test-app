@@ -21,7 +21,6 @@ export class CycList {
     this._list = list;
     this._index = 0;
     this._length = list.length;
-    console.log(this._list);
   }
 
   _changeIndex(delta) {
