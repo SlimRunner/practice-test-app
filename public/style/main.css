@@ -1,0 +1,130 @@
+:root {
+  --background: #363a41;
+  --foreground: #e5e6e9;
+  --glow: #ffffff;
+  --glow-accent: #a7dfffA0;
+  --accent: #5a606b;
+  --shade: #1e2229;
+  --fore-accent: #c5eaff;
+
+  --nav-triag-size: 30px;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: var(--background);
+  color: var(--foreground);
+}
+
+#main-content {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50.1%,-50.1%);
+	transform: translate(-50.1%,-50.1%);
+	
+	text-align: center;
+}
+
+a {
+  color: var(--fore-accent);
+	font-size: xx-large;
+	letter-spacing: 0.05em;
+	text-decoration: none;
+
+  transition: all 0.2s ease-in;
+}
+
+a:hover {
+  color: var(--glow);
+	text-shadow:
+    0px 0px 8px var(--glow-accent),
+    0px 0px 2px var(--glow);
+	letter-spacing: 0.08em;
+}
+
+.content {
+  position: absolute;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  top: 0; bottom: 0; right: 0; left: 0;
+
+  display: grid;
+  grid-template-columns: 1in 1fr 8px 1fr 1in;
+  grid-template-rows: 1in repeat(4, 1fr) 8px repeat(2, 1fr) 1in;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#section,
+#question,
+#answers {
+  font-size: x-large;
+  padding: 16px;
+  border-radius: 16px;
+
+  transition: opacity 0.2s ease-in;
+}
+
+#section {
+  color: var(--accent);
+  grid-column: 2;
+  grid-row: 7 / 9;
+  margin: 40px;
+}
+
+#question {
+  background-color: var(--accent);
+  grid-column: 2;
+  grid-row: 2 / 6;
+  margin: 40px;
+  cursor: pointer;
+
+  box-shadow: 10px 10px 16px #0000005d;
+}
+
+#answers {
+  grid-column: 4;
+  grid-row: 2 / 9;
+  margin: 40px;
+}
+
+#prev-button {
+  grid-column: 1;
+  grid-row: 5 / 7;
+}
+
+#next-button {
+  grid-column: 5;
+  grid-row: 5 / 7;
+}
+
+#prev-button::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  border-top: var(--nav-triag-size) solid transparent;
+  border-bottom: var(--nav-triag-size) solid transparent; 
+  border-right: calc(2 * var(--nav-triag-size)) solid var(--accent); 
+}
+
+#next-button::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  border-top: var(--nav-triag-size) solid transparent;
+  border-bottom: var(--nav-triag-size) solid transparent; 
+  border-left: calc(2 * var(--nav-triag-size)) solid var(--accent); 
+}
+
+#speakDiv {
+  grid-column: 2;
+  grid-row: 1 / 2;
+}
